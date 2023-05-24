@@ -4,21 +4,11 @@ import ShipmentCard from "./ShipmentCard";
 import noShipment from "../../assets/vectors/no_shipments.svg";
 
 export default function ShipmentHistory() {
-  const [currentTab, setCurrentTab] = useState(1);
   const [hasShipmentStatus, setHasShipmentStatus] = useState({
     past: false,
     ongoing: false,
     upcoming: false,
   });
-
-  /**
-   * A function that changes the state which represents the current selected tab
-   * @param tabId The tab which got selected, starting from 0
-   *
-   */
-  const handleTabChange = (tabId) => {
-    setCurrentTab(tabId);
-  };
 
   // IMP: After backend is completed remove this sample data
   const [shipmentList, setShipmentList] = useState([
@@ -48,82 +38,24 @@ export default function ShipmentHistory() {
     },
   ]);
 
-  /**
-   * A function that checks shipment list for the status of the various shipments
-   * It sets the hasShipmentStatus state according to the list of shipments
-   */
-  const checkShipmentStatus = () => {
-    shipmentList.forEach((shipmentDetails) => {
-      console.log(shipmentDetails);
-      if (shipmentDetails.shipmentStatus.startsWith("past")) {
-        setHasShipmentStatus((currentState) => ({
-          ...currentState,
-          past: true,
-        }));
-      } else if (shipmentDetails.shipmentStatus.startsWith("ongoing")) {
-        setHasShipmentStatus((currentState) => ({
-          ...currentState,
-          ongoing: true,
-        }));
-      } else if (shipmentDetails.shipmentStatus.startsWith("upcoming")) {
-        setHasShipmentStatus((currentState) => ({
-          ...currentState,
-          upcoming: true,
-        }));
-      }
-    });
-  };
-
-  useEffect(() => {
-    // IMP: After backend is completed make the API call and set the shipment list
-    checkShipmentStatus();
-  }, []);
-
   return (
     <>
       <h2 className="text-3xl md:text-4xl">
-        <span className="text-orange-primary">Shipment</span> History
+        <span className="text-orange-primary">Shipments</span>
       </h2>
 
-      <ShipmentHistoryTabs
-        currentTab={currentTab}
-        handleTabChange={handleTabChange}
-      />
-
       {shipmentList.map((shipmentDetails) => {
-        if (currentTab === 0 && shipmentDetails.shipmentStatus === "past") {
           return (
             <ShipmentCard
               key={shipmentDetails.shipmentId}
               shipmentDetails={shipmentDetails}
             />
           );
-        } else if (
-          currentTab === 1 &&
-          shipmentDetails.shipmentStatus.startsWith("ongoing")
-        ) {
-          return (
-            <ShipmentCard
-              key={shipmentDetails.shipmentId}
-              shipmentDetails={shipmentDetails}
-            />
-          );
-        } else if (
-          currentTab === 2 &&
-          shipmentDetails.shipmentStatus === "upcoming"
-        ) {
-          return (
-            <ShipmentCard
-              key={shipmentDetails.shipmentId}
-              shipmentDetails={shipmentDetails}
-            />
-          );
-        }
       })}
 
-      {currentTab === 0 && hasShipmentStatus.past == false && (
+      {shipmentList.length === 0 && (
         <>
-          <p className="m-10 text-3xl">No past shipments!</p>
+          <p className="m-10 text-3xl">No shipments to show!</p>
           <img
             src={noShipment}
             alt="No shipments found"
@@ -133,30 +65,7 @@ export default function ShipmentHistory() {
           />
         </>
       )}
-      {currentTab === 1 && hasShipmentStatus.ongoing === false && (
-        <>
-          <p className="m-10 text-3xl">No ongoing shipments!</p>
-          <img
-            src={noShipment}
-            alt="No shipments found"
-            width={"350px"}
-            height={"350px"}
-            className="m-10"
-          />
-        </>
-      )}
-      {currentTab === 2 && hasShipmentStatus.upcoming === false && (
-        <>
-          <p className="m-10 text-3xl">No upcoming shipments!</p>
-          <img
-            src={noShipment}
-            alt="No shipments found"
-            width={"350px"}
-            height={"350px"}
-            className="m-10"
-          />
-        </>
-      )}
+      
     </>
   );
 }

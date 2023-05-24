@@ -32,10 +32,7 @@ export default function ShipmentCard({ shipmentDetails }) {
           <span className="font-bold text-2xl">{getDisplayDate(shipmentDetails.date)}</span>
         </div>
 
-        <div className="m-3 text-xs md:text-base flex flex-col justify-center items-center">
-          <span className="font-medium">TYPE</span>
-          <span className="font-bold text-2xl">{capitalize(shipmentDetails.shipmentType)}</span>
-        </div>
+        
 
         {/* IMP: After backend is completed, add a handle click for this button */}
         <div className="mt-2 md:mt-0">
