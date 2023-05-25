@@ -4,6 +4,7 @@ import loginIcon from "../assets/vectors/login.svg"
 import ButtonPrimary from "../components/atoms/ButtonPrimary"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
+import cookies from 'js-cookie'
 
 export default function Login() {
     const [credentials,setCredentials] = useState({
@@ -48,7 +49,8 @@ export default function Login() {
         }
     
         // IMP: Add the login endpoint URL here after the backend is completed and ensure that user is navigated to the proper screen
-        const loginUrl = "";
+        const baseUrl = import.meta.env.VITE_API_BASEURL;
+        const loginUrl = `${baseUrl}/users/login`;
         axios
           .post(loginUrl, credentials)
           .then((response) => {
@@ -64,7 +66,11 @@ export default function Login() {
           })
           .catch((err) => {
             console.log(err);
-            alert("Unable to login at the moment :(");
+            if (err.response.status === 401) {
+              setIsLoggedIn(false);
+            } else {
+              alert("Unable to login at the moment :(");
+            }
           });
       };
 
@@ -82,7 +88,7 @@ export default function Login() {
       <div className="min-w-[25vw] bg-background-secondary mx-7 rounded-xl shadow-2xl mt-32 md:mt-0">
         <div className="p-4 flex flex-col items-center justify-center">
           <h1 className="text-3xl m-3 mb-5 font-normal">
-            Login to <span className="text-orange-primary">ULIP</span>
+            Login to <span className="text-orange-primary">ULIP</span><br /> Admin Dashboard
           </h1>
 
           <form className="flex flex-col" onSubmit={onSubmit}>
