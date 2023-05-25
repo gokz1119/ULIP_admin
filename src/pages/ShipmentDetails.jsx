@@ -54,6 +54,7 @@ export default function ShipmentDetails() {
       <div className="flex flex-col items-center">
         <ShipmentDetailsCard
           shipmentDetails={shipmentDetails}
+          shipmentId={shipmentId}
           cities={cities}
         />
       </div>
