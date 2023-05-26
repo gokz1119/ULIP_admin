@@ -91,7 +91,7 @@ export default function Login() {
             Login to <span className="text-orange-primary">ULIP</span><br /> Admin Dashboard
           </h1>
 
-          <form className="flex flex-col" onSubmit={onSubmit}>
+          <form className="flex flex-col pb-4" onSubmit={onSubmit}>
             <div className="flex justify-between items-center">
               <input
                 type="text"
@@ -146,14 +146,6 @@ export default function Login() {
             <ButtonPrimary text="Log In" size="xl" />
           </form>
         </div>
-        <p className="text-center text-lg mb-8">
-          Don't have an account?&nbsp;
-          <Link to={"/signup"}>
-            <span className="text-orange-primary hover:text-white">
-              Sign Up
-            </span>
-          </Link>
-        </p>
       </div>
     </div>
   </>
