@@ -28,11 +28,11 @@ export default function ShipmentHistory({ cities }) {
     const axiosConfig = generateAuthHeader();
     const baseUrl = import.meta.env.VITE_API_BASEURL;
 
-    const historyUrl = `${baseUrl}/hubs/shipmenthistory`;
+    const historyUrl = `${baseUrl}/admin/allshipments`;
     axios
       .get(historyUrl, axiosConfig)
       .then((response) => {
-        // console.log(response.data);
+        console.log(response.data);
         setShipmentList(response.data.shipmentDetails);
       })
       .catch((err) => {

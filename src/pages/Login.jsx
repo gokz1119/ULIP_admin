@@ -56,7 +56,7 @@ export default function Login() {
           .then((response) => {
             console.log(response.data);
     
-            if (response.data.token) {
+            if (response.data.token && response.data.typeOfUser === 'ADMIN') {
               setIsLoggedIn(true);
               cookies.set("auth", response.data.token, { path: "/" });
               navigate("/dashboard");
